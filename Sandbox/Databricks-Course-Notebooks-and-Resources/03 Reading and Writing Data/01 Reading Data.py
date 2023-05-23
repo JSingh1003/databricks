@@ -77,6 +77,10 @@ countries_df = spark.read.options(header=True, inferSchema=True).csv('/FileStore
 
 # COMMAND ----------
 
+countries_df.schema
+
+# COMMAND ----------
+
 # Importing Types and defining the schema before reading in the csv file
 from pyspark.sql.types import IntegerType, StringType, DoubleType, StructField, StructType
 countries_schema = StructType([

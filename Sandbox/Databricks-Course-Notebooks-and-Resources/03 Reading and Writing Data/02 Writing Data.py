@@ -42,6 +42,11 @@ countries_df.write.csv('/FileStore/tables/countries_out', header=True)
 
 # COMMAND ----------
 
+# MAGIC %fs
+# MAGIC ls 'dbfs:/FileStore/tables/'
+
+# COMMAND ----------
+
 # Reading in the countries_out file
 df = spark.read.csv('/FileStore/tables/countries_out', header=True)
 
@@ -60,13 +65,18 @@ display(df)
 
 # COMMAND ----------
 
+# MAGIC %fs
+# MAGIC ls 'dbfs:/FileStore/tables/output/countries_out'
+
+# COMMAND ----------
+
 # Partitioning the Dataframe file when writing it as a csv
-df.write.options(header=True).mode('overwrite').partitionBy('REGION_ID','SUB_REGION_ID').csv('/FileStore/tables/countries_out')
+df.write.options(header=True).mode('overwrite').partitionBy('REGION_ID').csv('/FileStore/tables/output/countries_out')
 
 # COMMAND ----------
 
 # Reading an individual partition, you will need to pass in your specific file path
-df2 = spark.read.csv('/FileStore/tables/countries_out/REGION_ID=10/part-00000-tid-7249390748988995848-2cdbc933-38c8-41ff-979e-8504e6f4a9dd-51-1.c000.csv', header=True)
+df2 = spark.read.csv('/FileStore/tables/output/countries_out/REGION_ID=10/part-00000-tid-7064810898417695256-94dc44e5-4289-4407-a353-cfced232b682-65-1.c000.csv', header=True)
 
 # COMMAND ----------
 
